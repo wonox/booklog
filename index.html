@@ -1,0 +1,54 @@
+<html>
+
+<head>
+	<!---参考　https://unsolublesugar.com/20121020/134414/ --->
+</head>
+
+<body>
+	<script type="text/javascript">
+		function booklog_minishelf(json) {
+			var items = json["books"];
+			var html = "";
+
+			for (var i = 0; i < items.length; i++) {
+				var elem = items[i];
+				// var text = '<span class="book"><span class="book_image"><a href="' + elem["url"] + '" target="_blank"><img src="' + elem["image"] + '" title="' + elem["title"] + '"width="52" height="75" alt="' + elem["title"] + '" /></a></span><span class="book_title"><a href="' + elem["url"] + '" target="_blank">' + elem["title"] + '</div></span></span><hr />';
+				var text = '<li class="book"><a href="' + elem["url"] + '" target="_blank"><img src="' + elem["image"] + '" title="' + elem["title"] + '"width="52" height="75" alt="' + elem["title"] + '"  class="book_image"/>' + elem["title"] + '</a></li>';
+				html += text;
+			}
+			// document.getElementById("booklog").innerHTML = html;
+			document.getElementsByClassName("booklog").item(0).innerHTML = html;  // Element(s)
+		}
+	</script>
+	<style>
+		.booklog {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			background-color: rgba(247, 246, 239, 0.664);
+		}
+
+		.booklog>li {
+			height: 200px;
+			padding: 5px;
+			background-color: rgb(247, 245, 244);
+		}
+
+		/*グリッド設定*/
+		.booklog {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 10px;
+		}
+
+
+		Resources
+	</style>
+	<h3 class="block-title">おすすめ電子ブック</h3>
+	<ul class="booklog">
+	</ul>
+
+	<script src="https://api.booklog.jp/json/komalib?category=0&count=20&callback=booklog_minishelf"></script>
+</body>
+
+</html>
