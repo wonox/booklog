@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <!---参考　https://unsolublesugar.com/20121020/134414/ --->
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      function booklog_minishelf(json) {
+        var items = json["books"];
+        var html = "";
+
+        for (var i = 0; i < items.length; i++) {
+          var elem = items[i];
+          // var text = '<span class="book"><span class="book_image"><a href="' + elem["url"] + '" target="_blank"><img src="' + elem["image"] + '" title="' + elem["title"] + '"width="52" height="75" alt="' + elem["title"] + '" /></a></span><span class="book_title"><a href="' + elem["url"] + '" target="_blank">' + elem["title"] + '</div></span></span><hr />';
+          var text =
+            '<li class="book"><a href="' +
+            elem["url"] +
+            '" target="_blank"><img src="' +
+            elem["image"] +
+            '" title="' +
+            elem["title"] +
+            '"width="52" height="75" alt="' +
+            elem["title"] +
+            '"  class="book_image"/>' +
+            elem["title"] +
+            "</a></li>";
+          html += text;
+        }
+        // document.getElementById("booklog").innerHTML = html;
+        document.getElementsByClassName("booklog").item(0).innerHTML = html; // Element(s)
+      }
+    </script>
+    <style>
+      .booklog {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: rgba(247, 246, 239, 0.664);
+      }
+
+      .booklog > li {
+        height: 270px;
+        padding: 0 0 0 20;
+        margin: 2 auto;
+        background-color: rgb(247, 245, 244);
+        border: 1px solid; /* 線の太さと可視化 */
+        border-radius: 4px; /* 半径が8pxの角丸 */
+        text-align: left;
+        vertical-align: bottom;
+        writing-mode: vertical-rl; /*縦書き*/
+        /*三点リーダーによる省略*/
+        width: 20px; /* 省略せずに表示するサイズを指定 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /*グリッド設定*/
+      .booklog {
+        display: grid;
+        /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));*/
+        grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+        gap: 25px; /* .booklog>li のwitdhとの関係で幅とスキマを決定*/
+        padding: 10px 50px 20px;
+      }
+    </style>
+    <h3 class="block-title">おすすめ電子ブック</h3>
+    <ul class="booklog"></ul>
+
+    <script src="https://api.booklog.jp/json/komalib?category=0&count=100&callback=booklog_minishelf"></script>
+  </body>
+</html>
